@@ -3,10 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
+import React, { useState } from "react";
 
 const Page = () => {
+  const [loading, setLoading] = useState(false);
   const handleSignIn = async () => {
-    return await authClient.signIn.social({ provider: "google" });
+    setLoading(true);
+    try {
+      await authClient.signIn.social({ provider: "google" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,14 +78,20 @@ const Page = () => {
             Create and share your very first <span>SnapCast video</span> in no
             time!
           </p>
-          <button onClick={handleSignIn}>
-            <Image
-              src="/assets/icons/google.svg"
-              alt="google"
-              width={22}
-              height={22}
-            />
-            <span>Sign in with Google</span>
+          <button onClick={handleSignIn} disabled={loading}>
+            {loading ? (
+              <span>Signing in...</span>
+            ) : (
+              <>
+                <Image
+                  src="/assets/icons/google.svg"
+                  alt="google"
+                  width={22}
+                  height={22}
+                />
+                <span>Sign in with Google</span>
+              </>
+            )}
           </button>
         </section>
       </aside>
