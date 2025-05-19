@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Shivananda-Sai-s-workspace-k2orvg.us-east-1.xata.sh/db/loomclone",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
